@@ -10,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ✅ Import product routes (FIXED)
+const productRoutes = require('./routes/productRoutes.cjs');
+
 // Test route
 app.get('/', (req, res) => {
   res.send('ProShop Backend is Running 🚀');
@@ -20,7 +23,10 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working perfectly 🚀' });
 });
 
-// PORT (IMPORTANT for Render)
+// ✅ MAIN FIX: connect products API
+app.use('/api/products', productRoutes);
+
+// PORT
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
