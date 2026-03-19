@@ -1,32 +1,34 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ Import product routes (FIXED)
-const productRoutes = require('./routes/productRoutes.cjs');
-
-// Test route
+// ROOT
 app.get('/', (req, res) => {
   res.send('ProShop Backend is Running 🚀');
 });
 
-// Test API route
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'API is working perfectly 🚀' });
+// ✅ FIXED PRODUCTS API
+app.get('/api/products', (req, res) => {
+  res.json([
+    {
+      _id: 1,
+      name: 'iPhone 14',
+      price: 1200,
+      image: 'https://via.placeholder.com/200'
+    },
+    {
+      _id: 2,
+      name: 'Samsung Galaxy',
+      price: 900,
+      image: 'https://via.placeholder.com/200'
+    }
+  ]);
 });
 
-// ✅ MAIN FIX: connect products API
-app.use('/api/products', productRoutes);
-
-// PORT
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
