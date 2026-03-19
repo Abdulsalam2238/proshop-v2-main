@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -5,9 +6,9 @@ function App() {
 
   useEffect(() => {
     fetch('https://proshop-v2-main-1-70s0.onrender.com/api/products')
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.error('Error:', err));
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -23,7 +24,6 @@ function App() {
             <h3>{product.name}</h3>
             <p>${product.price}</p>
           </div>
-const response = await fetch(`${BASE_URL}/products`);
         ))
       )}
     </div>
