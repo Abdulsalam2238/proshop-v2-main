@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = "https://proshop-v2-main-1-70s0.onrender.com/api";
 
 function App() {
   const [products, setProducts] = useState([]);
