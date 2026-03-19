@@ -1,15 +1,6 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Container } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import { logout } from './slices/authSlice';
+import { useEffect, useState } from 'react';
 
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = "https://proshop-v2-main-1-70s0.onrender.com/api";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -19,10 +10,12 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(${BASE_URL}/products);
+        const response = await fetch(`${BASE_URL}/products`);
+        
         if (!response.ok) {
-          throw new Error(HTTP error! status: ${response.status});
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+
         const data = await response.json();
         setProducts(data);
       } catch (err) {
@@ -36,26 +29,27 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div className="App">Loading products...</div>;
+    return <div style={{ textAlign: "center" }}>Loading products...</div>;
   }
 
   if (error) {
-    return <div className="App" style={{ color: "red" }}>Error: {error}</div>;
+    return <div style={{ color: "red", textAlign: "center" }}>Error: {error}</div>;
   }
 
   return (
-    <div className="App">
-      <h1>ProShop Products</h1>
-      <div className="products-container">
+    <div style={{ padding: "20px" }}>
+      <h1 style={{ textAlign: "center" }}>ProShop Products</h1>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
         {products.length === 0 ? (
           <p>No products available.</p>
         ) : (
           products.map((product) => (
-            <div key={product._id} className="product-card">
+            <div key={product._id} style={{ border: "1px solid #ccc", padding: "10px", width: "200px", textAlign: "center" }}>
               <img
                 src={product.image}
                 alt={product.name}
-                className="product-image"
+                style={{ width: "100%", height: "150px", objectFit: "cover" }}
               />
               <h3>{product.name}</h3>
               <p>${product.price}</p>
