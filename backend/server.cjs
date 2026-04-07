@@ -1,9 +1,15 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://proshop-v2-n9yv.onrender.com',
+  credentials: true
+}));
+
+app.use(cookieParser());
 app.use(express.json());
 
 // ROOT
@@ -11,7 +17,7 @@ app.get('/', (req, res) => {
   res.send('ProShop Backend is Running 🚀');
 });
 
-// ✅ FIXED PRODUCTS API
+// PRODUCTS API
 app.get('/api/products', (req, res) => {
   res.json([
     {
